@@ -1,0 +1,21 @@
+<div class="product grid__item medium-up--one-third small--one-half slide-up-animation animated"
+role="listitem">
+<a (click)="cardClick()">
+<img
+style="object-fit: cover; height: 200px; width: 300px;"
+src={{data.img}}
+alt="Doggo">
+</a>
+
+
+<div class="product__title text-center">
+  <a ><h3 style="margin: 12px 0 5px 0"><b style="margin: 12px;">{{data.name}}</b></h3></a>
+</div>
+
+<div class="product__prices text-center">
+  <span class="product__price">
+    <span class="visually-hidden">Regular price</span>
+    <h2 style="color: red;">${{data.price}}</h2>
+  </span>
+</div>
+</div>

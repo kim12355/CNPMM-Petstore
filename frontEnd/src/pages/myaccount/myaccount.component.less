@@ -1,0 +1,141 @@
+.logo {
+  height: 10em;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+::ng-deep .ant-form{
+  padding-bottom: 20px;
+}
+
+.left-layout {
+  height: 100vh;
+  background-color: #FFFFFF
+}
+
+nz-sider {
+  overflow: auto;
+  height: 100%;
+  position: fixed;
+  left: 0;
+}
+
+.right-layout {
+  margin-left: 200px;
+
+}
+
+nz-header {
+  background: #fff;
+  padding: 0;
+}
+
+
+
+nz-content {
+  margin: 24px 16px 0;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+.inner-content {
+
+  padding: 24px;
+  background: #F0F2F5;
+  display: flex;
+  min-height: 100%;
+  >div{
+    margin-right: 50px;
+  }
+  .avatar{
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    width: 300px;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+app-avatar{
+  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+  .infor{
+    font-size: 16px;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    width: 700px;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    padding: 18px;
+
+    .basic{
+      margin-top: 12px;
+      display: flex;
+      .full-name{
+        width: 30%;
+
+      }
+      .email{
+        width: 65%;
+
+      }
+    }
+    .phone{
+      
+    }
+    .address{
+      display: flex;
+      justify-content: space-between;
+      padding-right: 100px;
+    }
+
+  }
+}
+
+.detail-inf{
+  display: flex;
+  flex-direction: column;
+}
+
+nz-footer {
+  text-align: center;
+}
+
+
+nz-header{
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+
+  .top-left{
+    .searchBar{
+      width: 500px;
+    }
+  }
+  
+  .top-right{
+    display: flex;
+    align-items: center;
+    width: 200px;
+    justify-content: space-between;
+    padding: 0 1em 0 1em;
+    >div{
+      margin-left: 1em;
+    }
+    .logoutBtn{
+      
+    }
+  }
+}

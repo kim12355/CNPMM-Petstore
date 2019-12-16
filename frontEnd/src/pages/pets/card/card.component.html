@@ -1,0 +1,203 @@
+<nz-card [nzCover]="coverTemplate" style="width: 250px;" [nzActions]="[actionSetting, actionEdit, actionEllipsis]" 
+
+>
+
+
+  <div class="name">{{data.name}}</div>
+  <div class="character">{{data.character}}</div>
+</nz-card>
+<ng-template #coverTemplate>
+  <img alt="example" src="{{data.img}}" />
+</ng-template>
+<ng-template #actionSetting>
+  <i nz-icon nzType="delete" nz-popconfirm nzPopconfirmTitle="Are you sure?" 
+  nzOkText="ok"
+  nzCancelText="cancel"
+  (nzOnConfirm)="deletePet()"
+  ></i>
+  <ng-template #iconTpl>
+    <i nz-icon nzType="question-circle-o" style="color: red;"></i>
+  </ng-template>
+</ng-template>
+<ng-template #actionEdit>
+  <i nz-icon nzType="edit" (click)="showModal()"></i>
+</ng-template>
+<ng-template #actionEllipsis>
+  <i nz-icon nzType="ellipsis" (click)="detailClick()"></i>
+</ng-template>
+
+<!-- modal -->
+<nz-modal [(nzVisible)]="isVisible" nzTitle="Edit your pet" [nzFooter]="null" (nzOnCancel)="handleCancel()">
+
+  <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm(validateForm.value)">
+    <!-- name -->
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired>Pet's Name</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="userErrorTpl">
+        <input nz-input formControlName="name" placeholder="{{data.name}}" />
+        <ng-template #userErrorTpl let-control>
+          <ng-container *ngIf="control.hasError('required')">
+            Please input your pet's name!
+          </ng-container>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+    <!-- Character -->
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired>Character</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="userErrorTpl">
+        <input nz-input formControlName="character" placeholder="{{data.character}}" />
+        <ng-template #userErrorTpl let-control>
+          <ng-container *ngIf="control.hasError('required')">
+            Please input your pet's character!
+          </ng-container>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+    <!-- image -->
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired>Image link</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="userErrorTpl">
+        <input nz-input formControlName="image" placeholder="{{data.img}}" />
+        <ng-template #userErrorTpl let-control>
+          <ng-container *ngIf="control.hasError('required')">
+            Please input your pet's image!
+          </ng-container>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+    <!-- gender -->
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired>Gender</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="userErrorTpl">
+        <nz-select [(ngModel)]="selectedGender" nzAllowClear
+          nzPlaceHolder="{{data.gender === true ? 'Male' : 'Female'}}" formControlName="gender">
+          <nz-option nzValue="true" nzLabel="Male"></nz-option>
+          <nz-option nzValue="false" nzLabel="Female"></nz-option>
+        </nz-select>
+        <ng-template #userErrorTpl let-control>
+          <ng-container *ngIf="control.hasError('required')">
+            Please input your pet's Gender !
+          </ng-container>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+    <!-- age -->
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired>Age</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="userErrorTpl">
+        <input nz-input formControlName="age" placeholder="{{data.age}}" />
+        <ng-template #userErrorTpl let-control>
+          <ng-container *ngIf="control.hasError('required')">
+            Please input your pet's age!
+          </ng-container>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+    <!-- vaccine -->
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired>Vaccine UTD</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="userErrorTpl">
+        <nz-select [(ngModel)]="selectedVaccine" nzAllowClear nzPlaceHolder="{{data.vaccineUpToDate}}"
+          formControlName="vaccine">
+          <nz-option nzValue="true" nzLabel="True"></nz-option>
+          <nz-option nzValue="false" nzLabel="False"></nz-option>
+        </nz-select>
+        <ng-template #userErrorTpl let-control>
+          <ng-container *ngIf="control.hasError('required')">
+            Please input your pet's VUTD !
+          </ng-container>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+    <!-- provider -->
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired>Provider</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="userErrorTpl">
+        <nz-select [(ngModel)]="selectedValue" nzAllowClear nzPlaceHolder="{{data.provider}}"
+          formControlName="provider">
+          <nz-option nzValue="From Store" nzLabel="From Store"></nz-option>
+          <nz-option nzValue="From Someone" nzLabel="From Someone"></nz-option>
+        </nz-select>
+        <ng-template #userErrorTpl let-control>
+          <ng-container *ngIf="control.hasError('required')">
+            Please input your pet's provider !
+          </ng-container>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+
+    <!-- price -->
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired>Price</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="userErrorTpl">
+        <input nz-input formControlName="price" placeholder="{{data.price}}" />
+        <ng-template #userErrorTpl let-control>
+          <ng-container *ngIf="control.hasError('required')">
+            Please input your pet's price!
+          </ng-container>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-control [nzOffset]="7" [nzSpan]="12">
+        <button nz-button nzType="primary" [disabled]="!validateForm.valid" style="float: right">Save</button>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+<div style="padding-bottom: 12px;"></div>
+</nz-modal>
+
+<!-- modalDetail -->
+<nz-modal [(nzVisible)]="detailVisible" nzTitle="{{null}}" [nzFooter]="null" (nzOnCancel)="handleCancel()"
+  nzWrapClassName="vertical-center-modal">
+  <div class="card">
+    <div class="additional">
+      <div class="user-card">
+        <!-- avatar -->
+
+        <nz-avatar [nzSize]="120" nzIcon="user" nzSrc={{data.img}}></nz-avatar>
+        <div class="price">
+          <p>${{data.price}}</p>
+        </div>
+      </div>
+      <div class="more-info">
+        <h1>{{data.name}}</h1>
+      </div>
+    </div>
+    <div class="general">
+      <h1>{{data.name}}</h1> 
+      
+      <div class="row">
+          <p style="font-weight: bold;">Provider: </p>
+            <p style="font-weight: normal; color: rgb(0, 167, 0); font-size: large;">{{data.provider}}
+              </p>
+      </div>
+
+      <div class="row">
+          <p style="font-weight: bold;">Gender: </p>
+            <p style="font-weight: normal; color: rgb(0, 167, 0); font-size: large;">{{data.gender === true ? 'Male' : 'Female'}}
+              </p>
+      </div>
+      
+      <div class="row">
+          <p style="font-weight: bold;">Age: </p>
+          <p style="font-weight: normal; color: rgb(0, 167, 0); font-size: large;">{{data.age }}</p>
+        </div>
+
+        <div class="row">
+            <p style="font-weight: bold;">Vaccine Up-to-date: </p>
+            <p style="font-weight: normal; color: rgb(0, 167, 0); font-size: large;">{{data.vaccineUpToDate === true ? 'Yes' : 'No'}}
+              </p>
+        </div>
+
+        <div class="row" style="flex-wrap: wrap;">
+            <p style="font-weight: bold; width: 100%;">Character: </p>
+            <p style="font-weight: normal; color: #C4BEC4;">
+                {{data.character}}
+              </p>
+        </div>
+    </div>
+  </div>
+</nz-modal>

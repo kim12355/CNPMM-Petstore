@@ -1,0 +1,205 @@
+<nz-layout class="left-layout">
+  <nz-sider nzWidth="200px" nzTheme="light">
+    <div class="logo">
+      <nz-avatar [nzSize]="64" nzIcon="user" nzSrc={{detailCurrentUser.image}}></nz-avatar>
+      <h3>{{detailCurrentUser.name}}</h3>
+    </div>
+
+    <ul nz-menu nzMode="inline" class="sider-menu" >
+        <li nz-menu-item   (click)="dashboardPage()">
+          <fa name="home" ></fa> Dashboard
+        </li>
+        <li nz-menu-item  nzSelected (click)="myaccountPage()">
+          <fa name="user"></fa> My account
+        </li>
+        <li nz-menu-item  (click)="permissionsPage()" class='roleMenu'>
+          <fa name="cog"></fa> Roles management
+        </li>
+        <li nz-menu-item  (click)="petsPage()" class="petsMenu">
+          <fa name="lemon-o	"></fa> Pets
+        </li>
+        <li nz-menu-item  (click)="customersPage()" class="customersMenu">
+          <fa name="users"></fa> Customers
+        </li>
+        <li nz-menu-item   (click)="ordersPage()" class="ordersMenu">
+          <fa name="users"></fa> Orders
+        </li>
+      </ul>
+
+  </nz-sider>
+  <nz-layout class="right-layout">
+    <nz-header>
+      <div class="top-left">
+        <!-- <nz-input-group [nzSuffix]="suffixIconSearch" class="searchBar">
+                    <input type="text" nz-input placeholder="input search text" />
+                  </nz-input-group>
+                  <ng-template #suffixIconSearch>
+                    <i nz-icon nzType="search"></i>
+                  </ng-template> -->
+      </div>
+      <div class="div top-right">
+        <nz-button-group [nzSize]="size">
+          <button nz-button nzType="primary" (click)="dasboardPage()" disabled><i nz-icon nzType="left"></i></button>
+          <button nz-button nzType="primary"><i nz-icon nzType="right"></i></button>
+        </nz-button-group>
+
+        <button nz-button nzType="default" class="logoutBtn" (click)="logoutClick()">Log out</button>
+      </div>
+
+
+
+
+    </nz-header>
+    <nz-content>
+      <!-- modal -->
+      <nz-modal [(nzVisible)]="isVisible" nzTitle="Edit profile" [nzFooter]="null" (nzOnCancel)="handleCancel()">
+
+          <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm(validateForm.value)">
+            <!-- name -->
+            <nz-form-item>
+              <nz-form-label [nzSpan]="7" >Full Name</nz-form-label>
+              <nz-form-control [nzSpan]="12" nzHasFeedback nzValidatingTip="Validating..." [nzErrorTip]="userErrorTpl">
+                <input nz-input formControlName="name" placeholder="{{detailCurrentUser.name}}" />
+                <ng-template #userErrorTpl let-control>
+                  <ng-container *ngIf="control.hasError('required')">
+                    Please input your name!
+                  </ng-container>
+                </ng-template>
+              </nz-form-control>
+            </nz-form-item>
+
+            <!-- phone -->
+            <nz-form-item>
+              <nz-form-label [nzSpan]="7" >Phone</nz-form-label>
+              <nz-form-control [nzSpan]="12" nzHasFeedback nzValidatingTip="Validating..." [nzErrorTip]="userErrorTpl">
+                <input nz-input formControlName="phone" placeholder="{{detailCurrentUser.phone}}" />
+                <ng-template #userErrorTpl let-control>
+                  <ng-container *ngIf="control.hasError('required')">
+                    Please input your phone !
+                  </ng-container>
+                </ng-template>
+              </nz-form-control>
+            </nz-form-item>
+        
+            <!-- address -->
+            <nz-form-item>
+              <nz-form-label [nzSpan]="7" >Address</nz-form-label>
+              <nz-form-control [nzSpan]="12" nzHasFeedback nzValidatingTip="Validating..." [nzErrorTip]="userErrorTpl">
+                <input nz-input formControlName="address" placeholder="{{detailCurrentUser.address}}" />
+                <ng-template #userErrorTpl let-control>
+                  <ng-container *ngIf="control.hasError('required')">
+                    Please input your phone !
+                  </ng-container>
+                </ng-template>
+              </nz-form-control>
+            </nz-form-item>
+        
+            <!-- img -->
+            <nz-form-item>
+                <nz-form-label [nzSpan]="7" >Image link</nz-form-label>
+                <nz-form-control [nzSpan]="12" nzHasFeedback nzValidatingTip="Validating..." [nzErrorTip]="userErrorTpl">
+                  <input nz-input formControlName="image" placeholder="{{detailCurrentUser.image}}" />
+                  <ng-template #userErrorTpl let-control>
+                    <ng-container *ngIf="control.hasError('required')">
+                      Please input your image link !
+                    </ng-container>
+                  </ng-template>
+                </nz-form-control>
+              </nz-form-item>
+        
+            <!-- password -->
+            <nz-form-item>
+                <nz-form-label [nzSpan]="7" >Password</nz-form-label>
+                <nz-form-control [nzSpan]="12" nzHasFeedback nzValidatingTip="Validating..." [nzErrorTip]="userErrorTpl">
+                  <input type="password" nz-input formControlName="password" placeholder="" />
+                  <ng-template #userErrorTpl let-control>
+                    <ng-container *ngIf="control.hasError('required')">
+                      Please input your password !
+                    </ng-container>
+                  </ng-template>
+                </nz-form-control>
+              </nz-form-item>
+        
+            <!-- checkPassword -->
+            <nz-form-item>
+                <nz-form-label [nzSpan]="7" >Confirm password</nz-form-label>
+                <nz-form-control [nzSpan]="12" nzHasFeedback nzValidatingTip="Validating..." [nzErrorTip]="userErrorTpl">
+                  <input type="password" nz-input formControlName="checkPassword" placeholder="" />
+                  <ng-template #userErrorTpl let-control>
+                    <ng-container *ngIf="control.hasError('required')">
+                      Please input your password !
+                    </ng-container>
+                    <ng-container *ngIf="control.hasError('confirm')">
+                        Two passwords that you enter is inconsistent!
+                      </ng-container>
+                  </ng-template>
+                </nz-form-control>
+              </nz-form-item>
+        
+
+            <nz-form-item>
+              <nz-form-control [nzOffset]="7" [nzSpan]="12">
+                <button nz-button nzType="primary"  style="float: right">Save</button>
+              </nz-form-control>
+            </nz-form-item>
+          </form>
+        
+        </nz-modal>
+      <div class="inner-content">
+        <div class="avatar">
+          <nz-avatar [ngStyle]="{ 'background-color': color }" [nzText]="text" nzSize="10em"
+            style="vertical-align: middle; " nzSrc="{{detailCurrentUser.image}}">
+          </nz-avatar>
+          <button nz-button [nzType]="'dashed'" (click)="showModal()" style="margin-top: 24px; vertical-align: middle;">
+            <span>Edit profile</span>
+          </button>
+        </div>
+
+        <div class="infor">
+          <div class="name">
+            <h2><b>{{detailCurrentUser.firstName}}</b></h2>
+          </div>
+          <div class="basic">
+            <div class="full-name detail-inf">
+              <b>Full Name</b>
+              {{detailCurrentUser.name}}
+            </div>
+            <div class="email detail-inf">
+              <b>Email</b>
+              {{detailCurrentUser.email}}
+            </div>
+          </div>
+
+          <nz-divider style="margin: 12px"></nz-divider>
+
+          <div class="phone detail-inf">
+            <b>Phone</b>
+            {{detailCurrentUser.phone}}
+          </div>
+          <nz-divider style="margin: 12px"></nz-divider>
+
+          <div class="address ">
+
+            <div class="street detail-inf">
+              <b>Address</b>
+              {{detailCurrentUser.address}}
+            </div>
+
+            <!-- <div class="district detail-inf">
+                <b>District</b>
+                Thu Duc
+            </div>
+
+            <div class="City detail-inf">
+                <b>City</b>
+                Ho Chi Minh
+            </div> -->
+          </div>
+
+        </div>
+      </div>
+    </nz-content>
+    <nz-footer>MyPet ©2019 Design and code by alien</nz-footer>
+  </nz-layout>
+
+</nz-layout>

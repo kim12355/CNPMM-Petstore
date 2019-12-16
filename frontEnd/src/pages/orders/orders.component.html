@@ -1,0 +1,147 @@
+<nz-layout class="left-layout">
+  <nz-sider nzWidth="200px" nzTheme="light">
+    <div class="logo">
+      <nz-avatar [nzSize]="64" nzIcon="user" nzSrc={{photoUrl}}></nz-avatar>
+      <h3>{{currentUser.name}}</h3>
+    </div>
+
+    <ul nz-menu nzMode="inline" class="sider-menu">
+      <li nz-menu-item (click)="dashboardPage()">
+        <fa name="home"></fa> Dashboard
+      </li>
+      <li nz-menu-item (click)="myaccountPage()">
+        <fa name="user"></fa> My account
+      </li>
+      <li nz-menu-item (click)="permissionsPage()" class='roleMenu'>
+        <fa name="cog"></fa> Roles management
+      </li>
+      <li nz-menu-item (click)="petsPage()" class="petsMenu">
+        <fa name="lemon-o	"></fa> Pets
+      </li>
+      <li nz-menu-item (click)="customersPage()" class="customersMenu">
+        <fa name="users"></fa> Customers
+      </li>
+      <li nz-menu-item nzSelected (click)="ordersPage()" class="ordersMenu">
+        <fa name="users"></fa> Orders
+      </li>
+    </ul>
+
+  </nz-sider>
+  <nz-layout class="right-layout">
+    <nz-header>
+      <div class="top-left">
+        <!-- <nz-input-group [nzSuffix]="suffixIconSearch" class="searchBar">
+                    <input type="text" nz-input placeholder="input search text" />
+                  </nz-input-group>
+                  <ng-template #suffixIconSearch>
+                    <i nz-icon nzType="search"></i>
+                  </ng-template> -->
+      </div>
+      <div class="div top-right">
+        <nz-button-group [nzSize]="size">
+          <button nz-button nzType="primary" (click)="dasboardPage()" disabled><i nz-icon nzType="left"></i></button>
+          <button nz-button nzType="primary"><i nz-icon nzType="right"></i></button>
+        </nz-button-group>
+
+        <button nz-button nzType="default" class="logoutBtn" (click)="logoutClick()">Log out</button>
+      </div>
+
+
+    </nz-header>
+    <nz-content>
+      <div class="inner-content">
+        <button nz-button nzType="primary" (click)="loadOrders()" style="margin-bottom: 10px; margin-left: 90%;">Reload</button>
+        <nz-table #nzTable [nzData]="listOfDisplayData">
+          <thead>
+            <tr>
+              <th nzCustomFilter>
+                Name
+                <i nz-th-extra class="ant-table-filter-icon" nz-icon nz-dropdown #dropdown="nzDropdown" nzType="search"
+                  [nzDropdownMenu]="menu" [class.ant-table-filter-open]="dropdown.nzVisible" nzTrigger="click"
+                  nzPlacement="bottomRight" [nzClickHide]="false" nzTableFilter></i>
+              </th>
+              <th>Day</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of ordersData">
+              <td>{{ data.name }}</td>
+              <td>{{ data.date }}</td>
+              <td *ngIf="data.message === 'Order is being processed'">
+                <nz-tag [nzColor]="'gold'">{{data.message }}...</nz-tag>
+              </td>
+              <td *ngIf="data.message !== 'Order is being processed'">
+                <nz-tag [nzColor]="'green'">{{data.message }}</nz-tag>
+              </td>
+              <td>
+                <a (click)="openModal(data)">Detail</a> |
+                <a
+                nz-popconfirm
+                nzPopconfirmTitle="Are you sure?"
+                nzOkText="ok"
+                nzCancelText="cancel"
+                (nzOnConfirm)="deleteOrder(data._id)"
+                (nzOnCancel)="cancel()"
+                >Delete</a
+              >
+              </td>
+            </tr>
+          </tbody>
+        </nz-table>
+        <nz-dropdown-menu #menu="nzDropdownMenu">
+          <div class="search-box">
+            <input type="text" nz-input placeholder="Search name" [(ngModel)]="searchValue" />
+            <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">
+              Search
+            </button>
+            <button nz-button nzSize="small" (click)="reset()">Reset</button>
+          </div>
+        </nz-dropdown-menu>
+      </div>
+    </nz-content>
+    <nz-footer>MyPet ©2019 Design and code by alien</nz-footer>
+  </nz-layout>
+
+</nz-layout>
+
+
+<nz-modal 
+style="margin: 0"
+[(nzVisible)]="isVisibleMiddle" 
+[(nzTitle)]="currentOrderID"
+(nzOnCancel)="closeModal()" 
+(nzOnClose)="closeModal()" 
+(nzOnOk)="approveHandler(modalData._id)"
+nzOkText='Approve this order !'
+>
+  <nz-table #nzTable [nzData]="listOfDisplayData">
+    <thead>
+      <tr>
+        <th>Image</th>
+        <th>Quantity</th>
+        <th>Name</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of modalData.listProduct">
+        <td>
+          <img src={{data.img}} style="height: 100px; width: 150px; object-fit: cover;">
+        </td>
+        <td>1</td>
+        <td>{{ data.name }}</td>
+        <td style="color: red;">${{ data.price }}</td>
+      </tr>
+    </tbody>
+  </nz-table>
+  <div class="footer-modal" style="padding-top: 2em; display: flex; width: 100%;">
+    <div class="time_footer_modal">
+      <h3>Time: <p>{{currentTime}}</p></h3>
+    </div>
+    <div class="total_footer_modal" style="margin-left: auto; ">
+      <h3 style="display: flex; align-items: center">Total: <h2 style="color: red; margin: 0 0 0 .5em">${{currentTotalPrice}}</h2></h3>
+    </div>
+  </div>
+</nz-modal>

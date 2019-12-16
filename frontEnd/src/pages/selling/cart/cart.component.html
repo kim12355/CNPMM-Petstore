@@ -1,0 +1,121 @@
+
+  <main class="main-content grid__item medium-up--four-fifths" id="MainContent" role="main">
+
+    <hr class="hr--border-top small--hide">
+    <div *ngIf="cart.length > 0">
+  
+  
+    <nav class="breadcrumb-nav small--text-center" aria-label="You are here">
+      <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+        <a href="/" itemprop="url" title="Back to the frontpage">
+          <span itemprop="title">Home</span>
+        </a>
+        <span class="breadcrumb-nav__separator" aria-hidden="true">›</span>
+      </span>
+  
+      Your Shopping Cart
+  
+    </nav>
+  
+  
+    <!-- /templates/cart.liquid -->
+  
+    <div class="grid">
+      <div class="grid__item">
+  
+        <h1 class="h2 visually-hidden">Shopping Cart</h1>
+        <form action="/cart" method="post" novalidate class="cart">
+          <table class="responsive-table table--no-border">
+            <thead class="cart__row cart__header-labels small--hide">
+              <th class="text-left cart__table-cell--image">Product</th>
+              <th class="text-center cart__table-cell--meta"></th>
+              <th class="text-center cart__table-cell--price">Price</th>
+              <th class="text-center cart__table-cell--quantity">Quantity</th>
+              <th class="text-right cart__table-cell--line-price">Total</th>
+            </thead>
+            <tbody>
+  
+              <tr class="cart__row responsive-table__row" *ngFor="let item of cart"> 
+                <td class="cart__table-cell--image small--text-center">
+                  <style>
+                    #CartImage--391868907535 {
+                      max-width: 720px;
+                      max-height: 720.0px;
+                    }
+  
+                    #CartImageWrapper--391868907535 {
+                      max-width: 720px;
+                    }
+                  </style>
+  
+                      <img class="cart__image"
+                        src={{item.img}}
+                        style="height: 150px; width: 200px; object-fit: cover;"
+                        >
+                </td>
+                <td class="cart__table-cell--meta small--text-center">
+                  <p>
+                    <a href="/products/artillery-bomber-jacket-fatigue?variant=715337465871" style="font-weight: bold; font-size: large;">{{item.name}}</a>
+  
+                  </p>
+  
+                  <p class="txt--minor">
+                    <a class="cart__remove" (click)="removeItem(item._id)">Remove</a>
+                  </p>
+                </td>
+                <td class="cart__table-cell--price medium-up--text-center" data-label="Price">
+                  <span>
+                    ${{item.price}}
+                  </span>
+                </td>
+                <td data-label="Quantity" class="medium-up--text-center cart__table-cell--quantity">
+                  <label class="visually-hidden"
+                    for="updates_715337465871:f4590254593f6ed551e572273e471108">Quantity</label>
+                  <input class="quantity-selector" type="number" name="updates[]"
+                    id="updates_715337465871:f4590254593f6ed551e572273e471108" value="1" min="1" max="1">
+                </td>
+                <td data-label="Total" class="text-right cart__table-cell--line-price">
+  
+                  <span style="color: red;">
+                    ${{item.price}}
+                  </span>
+  
+                </td>
+              </tr>
+  
+            </tbody>
+          </table>
+  
+          <footer class="cart__footer">
+            <div class="grid">
+              <div class="grid__item medium-up--one-half">
+                <label for="CartSpecialInstructions" class="label--block">Special instructions for seller</label>
+                <textarea name="note" id="CartSpecialInstructions" class="input--block cart__note"></textarea>
+              </div>
+              <div class="grid__item text-center medium-up--one-half medium-up--text-right">
+                <p>
+                  <span class="cart__subtotal-title h3">Subtotal: </span>
+                  <span class="cart__subtotal h3"  style="color: red; font-size:xx-large; font-weight: bold;">${{totalPrice}}</span>
+                </p>
+  
+                <p class="cart__policies txt--emphasis rte">Taxes and shipping calculated at checkout
+                </p>
+                <p (click)="continueShopingClick()">
+                  <a  class="btn btn--secondary" >Continue shopping</a>
+                </p>
+                <p>
+                  <button type="submit" name="checkout" class="btn" (click)="confirmOrderHandler()">Check Out</button>
+                </p>
+              </div>
+            </div>
+          </footer>
+        </form>
+  
+      </div>
+    </div>
+  </div>
+  <div *ngIf="cart.length == 0" >
+    <h2 style="width: 10em; height: 20em">Your cart is empty !</h2>
+  </div>
+  </main>
+

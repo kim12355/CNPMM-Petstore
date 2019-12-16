@@ -1,0 +1,43 @@
+<main class="main-content grid__item medium-up--four-fifths" id="MainContent" role="main">
+      
+      
+  <div class="index-sections">
+    <!-- BEGIN content_for_index -->
+    <div id="shopify-section-featured-products" class="shopify-section">
+
+
+
+
+
+      <hr class="medium-up--hide hr--clear hr--small">
+
+
+      <div class="featured-products">
+
+
+        <h2 class="small--text-center">Featured collection</h2>
+
+        <div style="margin: 2em; width: 30%;">
+          <nz-input-group [nzSuffix]="suffixIconSearch" >
+            <input  type="text" nz-input placeholder="input search text" (keydown)="search($event)"/>
+          </nz-input-group>
+          <ng-template #suffixIconSearch>
+            <i nz-icon nzType="search"></i>
+          </ng-template>
+        </div>
+
+        <div class="">
+          <!-- product start -->
+          <ng-container #container ></ng-container>
+          <!-- product end -->
+        </div>
+      </div>
+
+
+
+
+    </div>
+
+  </div>
+
+</main>

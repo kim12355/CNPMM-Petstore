@@ -1,0 +1,80 @@
+.container{
+  height: 100vh;
+  width: 100vw;
+  padding: 5em;
+  position: relative;
+  
+}
+
+.img-left{
+  height: 30em;
+  width: 30em;
+  position: absolute;
+}
+
+.center{
+  top:0;
+	bottom: 0;
+	left: 0;
+	right: 0;	
+  margin: auto;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.img-left:hover{
+  cursor: pointer;
+}
+
+.center-box{
+  position: absolute;
+  height: fit-content;
+  width: fit-content;
+  border: 1px solid #EBEDF0;
+  border-radius: 10px;
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+ align-items: center;
+ box-shadow: 0 1px 3px rgba(0, 0, 0, 0.46);
+ transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.login-box{
+  opacity: 0;
+  z-index: -999;
+}
+
+.register-box{
+  opacity: 0;
+  z-index: -999;
+}
+
+.show{
+  opacity: 100;
+  transform: translateX(200px);
+  z-index: 1;
+}
+.show-large{
+  opacity: 100;
+  transform: translateX(250px);
+  z-index: 1;
+}
+
+.move-img-to-left{
+  transform: translateX(-200px);
+}
+.move-img-to-left-register{
+  transform: translateX(-250px);
+}
+
+.login-form {
+  max-width: 300px;
+}
+
+.login-form-forgot {
+  float: right;
+}
+
+.login-form-button {
+  width: 100%;
+}

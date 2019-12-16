@@ -1,0 +1,47 @@
+<div class="container">
+  <img class="img-left center" src="assets\image\login-bg.jpg" (click)="imgClick()">
+  <div class="center-box login-box hide center">
+    <h1>Login</h1>
+    <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Please input your username!">
+          <nz-input-group nzPrefixIcon="user">
+            <input type="text" nz-input formControlName="userName" placeholder="Username" [(ngModel)]="username" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Please input your Password!">
+          <nz-input-group nzPrefixIcon="lock">
+            <input type="password" nz-input formControlName="password" placeholder="Password" [(ngModel)]="password" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control>
+          <label nz-checkbox formControlName="remember">
+            <span>Remember me</span>
+          </label>
+          <a class="login-form-forgot" class="login-form-forgot">Forgot password</a>
+          <button nz-button class="login-form-button" [nzType]="'primary'">Log in</button>
+          Or
+          <a (click)="registerClick()">register now!</a>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+
+    <button nz-button class="fbLogin"  (click)="signInWithFB()" style="width: 100%; margin-bottom: .5em"><span>
+        <i nz-icon nzType="facebook" nzTheme="outline" style="color: #4267B2;"></i>
+    </span> Log in with Facebook</button>
+
+    <button nz-button class="ggLogin"  (click)="signInWithGoogle()" style="width: 100%"><span>
+        <i nz-icon nzType="google" nzTheme="outline" ></i>
+    </span> Log in with Google</button>
+
+  </div>
+  <div class="center-box register-box hide center">
+    <h1>Register</h1>
+    <app-register (registered)="imgClick($event)"></app-register>
+  </div>
+  
+</div>

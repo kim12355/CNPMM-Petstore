@@ -1,0 +1,108 @@
+.logo {
+  height: 10em;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.cardList{
+  display: flex;
+  flex-wrap: wrap;
+  >app-card{
+    margin: 0 0.5em 2em 0.5em
+  }
+}
+
+.left-layout {
+  height: 100vh;
+  background-color: #FFFFFF
+}
+
+nz-sider {
+  overflow: auto;
+  height: 100%;
+  position: fixed;
+  left: 0;
+}
+
+.right-layout {
+  margin-left: 200px;
+
+}
+
+[nz-form] {
+  max-width: 600px;
+
+}
+
+::ng-deep .ant-form{
+  padding-top: 20px;
+}
+::ng-deep .ant-card-cover{
+  height: 170px;
+  >img{
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+button {
+  margin-left: 8px;
+}
+
+nz-header {
+  background: #fff;
+  padding: 0;
+}
+
+.add-pet{
+  margin-right: auto;
+  margin-left: 12px;
+}
+
+nz-content {
+  margin: 24px 16px 0;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+.inner-content {
+  padding: 24px;
+  background: #fff;
+  text-align: center;
+
+}
+
+nz-footer {
+  text-align: center;
+}
+
+
+nz-header{
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+
+  .top-left{
+    .searchBar{
+      width: 500px;
+    }
+  }
+  
+  .top-right{
+    display: flex;
+    align-items: center;
+    width: 200px;
+    justify-content: space-between;
+    padding: 0 1em 0 1em;
+    >div{
+      margin-left: 1em;
+    }
+    .logoutBtn{
+      
+    }
+  }
+}

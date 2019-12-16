@@ -1,0 +1,77 @@
+.logo {
+  height: 10em;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.left-layout {
+  height: 100vh;
+  background-color: #FFFFFF
+}
+
+nz-sider {
+  overflow: auto;
+  height: 100%;
+  position: fixed;
+  left: 0;
+}
+
+.right-layout {
+  margin-left: 200px;
+
+}
+
+nz-header {
+  background: #fff;
+  padding: 0;
+}
+
+
+
+nz-content {
+  margin: 24px 16px 0;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+.inner-content {
+  padding: 24px;
+  background: #fff;
+  text-align: center;
+  min-height: 100%
+}
+
+nz-footer {
+  text-align: center;
+}
+
+
+nz-header{
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+
+  .top-left{
+    .searchBar{
+      width: 500px;
+    }
+  }
+  
+  .top-right{
+    display: flex;
+    align-items: center;
+    width: 200px;
+    justify-content: space-between;
+    padding: 0 1em 0 1em;
+    >div{
+      margin-left: 1em;
+    }
+    .logoutBtn{
+      
+    }
+  }
+}

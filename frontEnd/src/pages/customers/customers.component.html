@@ -1,0 +1,59 @@
+<nz-layout class="left-layout">
+  <nz-sider nzWidth="200px" nzTheme="light">
+      <div class="logo">
+          <nz-avatar [nzSize]="64" nzIcon="user" nzSrc={{currentUser.photoUrl}}></nz-avatar>
+        <h3>{{currentUser.name}}</h3>
+      </div>
+
+      <ul nz-menu nzMode="inline" class="sider-menu" >
+          <li nz-menu-item   (click)="dashboardPage()">
+            <fa name="home" ></fa> Dashboard
+          </li>
+          <li nz-menu-item  (click)="myaccountPage()">
+            <fa name="user"></fa> My account
+          </li>
+          <li nz-menu-item  (click)="permissionsPage()" class='roleMenu'>
+            <fa name="cog"></fa> Roles management
+          </li>
+          <li nz-menu-item  (click)="petsPage()" class="petsMenu">
+            <fa name="lemon-o	"></fa> Pets
+          </li>
+          <li nz-menu-item  nzSelected (click)="customersPage()" class="customersMenu">
+            <fa name="users"></fa> Customers
+          </li>
+          <li nz-menu-item   (click)="ordersPage()" class="ordersMenu">
+            <fa name="users"></fa> Orders
+          </li>
+        </ul>
+
+  </nz-sider>
+  <nz-layout class="right-layout">
+    <nz-header>
+      <div class="top-left">
+        <!-- <nz-input-group [nzSuffix]="suffixIconSearch" class="searchBar">
+                    <input type="text" nz-input placeholder="input search text" />
+                  </nz-input-group>
+                  <ng-template #suffixIconSearch>
+                    <i nz-icon nzType="search"></i>
+                  </ng-template> -->
+      </div>
+      <div class="div top-right">
+        <nz-button-group [nzSize]="size">
+          <button nz-button nzType="primary" (click)="dasboardPage()" disabled><i nz-icon nzType="left"></i></button>
+          <button nz-button nzType="primary"><i nz-icon nzType="right"></i></button>
+        </nz-button-group>
+
+        <button nz-button nzType="default" class="logoutBtn" (click)="logoutClick()">Log out</button>
+      </div>
+
+
+    </nz-header>
+    <nz-content>
+      <div class="inner-content">
+          <app-listcustomers></app-listcustomers>
+      </div>
+    </nz-content>
+    <nz-footer>MyPet ©2019 Design and code by alien</nz-footer>
+  </nz-layout>
+
+</nz-layout>
